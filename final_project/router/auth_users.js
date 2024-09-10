@@ -62,15 +62,14 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
  
   const isbn = req.params.isbn
   const username = req.session.authorization.username
-  const query = req.body.query
+  const review = req.params.review
  
   let bookToUpdate = books[isbn]
   if (bookToUpdate) {
-    if (query) {
-      console.log(query)
-      bookToUpdate["reviews"][username] = query
+    if (review) {
+      bookToUpdate["reviews"][username] = review
     }
-    res.send(`Updated review for ${username}`)
+    res.send(`The review for book with ISBN ${isbn} has been added.`)
   }
   else {
     res.status(404).json({message: 'Unable to find book'})
@@ -84,7 +83,7 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
 
   if (reviewsToDelete) {
     delete reviewsToDelete[username]
-    res.send(`${username} deleted`)
+    res.send(`Reviews for ISBN ${isbn} posted by ${username} deleted`)
   }
   else {
     res.status(404).json({message: "Unable to find book"})

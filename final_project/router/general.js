@@ -41,7 +41,7 @@ public_users.get('/', async function (req, res) {
 
 
 
- public_users.get('/isbn/:isbn', async function (req, res) {
+ public_users.get('/isbn/:isbn', function (req, res) {
   //Write your code here
   let isbn = req.params.isbn
   try {
